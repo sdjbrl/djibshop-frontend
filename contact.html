@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — Djib's Shop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/contact.css">
+</head>
+<body>
+  <header id="header" class="header"></header>
+
+  <main class="contact-main">
+    <div class="container">
+      <div class="contact-grid">
+
+        <!-- Infos -->
+        <div class="contact-info">
+          <h1 class="contact-title">Nous contacter</h1>
+          <p class="contact-subtitle">Une question sur une commande, un produit, ou autre chose ? On vous répond rapidement.</p>
+
+          <div class="contact-cards">
+            <div class="contact-card">
+              <div class="contact-card-icon">🎮</div>
+              <div>
+                <div class="contact-card-label">Discord</div>
+                <div class="contact-card-value">sdjbrl</div>
+              </div>
+            </div>
+            <div class="contact-card">
+              <div class="contact-card-icon">𝕏</div>
+              <div>
+                <div class="contact-card-label">Twitter / X</div>
+                <a href="https://x.com/flrdlsx" target="_blank" class="contact-card-value">@flrdlsx</a>
+              </div>
+            </div>
+            <div class="contact-card">
+              <div class="contact-card-icon">📧</div>
+              <div>
+                <div class="contact-card-label">Email pro</div>
+                <div class="contact-card-value">pro.saidahmed@yahoo.com</div>
+              </div>
+            </div>
+            <div class="contact-card">
+              <div class="contact-card-icon">⏱️</div>
+              <div>
+                <div class="contact-card-label">Temps de réponse</div>
+                <div class="contact-card-value">Sous 24h (GMT+1)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Formulaire -->
+        <div class="contact-form-wrap">
+          <form id="contact-form" novalidate>
+            <div class="form-group">
+              <label for="c-name">Votre nom *</label>
+              <input type="text" id="c-name" class="form-control" placeholder="Jean Dupont" required>
+            </div>
+            <div class="form-group">
+              <label for="c-email">Votre email *</label>
+              <input type="email" id="c-email" class="form-control" placeholder="vous@email.com" required>
+            </div>
+            <div class="form-group">
+              <label for="c-subject">Sujet</label>
+              <select id="c-subject" class="form-control">
+                <option value="">Choisir un sujet…</option>
+                <option>Question sur une commande</option>
+                <option>Problème de livraison</option>
+                <option>Question sur un produit</option>
+                <option>Autre</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="c-message">Message *</label>
+              <textarea id="c-message" class="form-control" rows="5" placeholder="Décrivez votre demande…" required></textarea>
+            </div>
+            <div id="contact-error"  class="form-error"   style="min-height:16px;margin-bottom:8px"></div>
+            <div id="contact-success" style="display:none" class="alert alert-success">
+              ✅ Message envoyé ! Nous vous répondrons sous 24h.
+            </div>
+            <button type="submit" id="contact-btn" class="btn btn-gold btn-full btn-lg">Envoyer le message →</button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer id="footer" class="footer"></footer>
+  <div id="toast-container"></div>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/contact.js"></script>
+</body>
+</html>

@@ -381,3 +381,110 @@ button { font-family: 'Inter', sans-serif; }
   .cart-sidebar { width: 100%; }
   .hamburger { display: flex; }
 }
+
+/* ══════════════════════════════════════════════
+   PRODUCT CARD — Design épuré
+   ══════════════════════════════════════════════ */
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.product-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform .18s, border-color .18s, box-shadow .18s;
+}
+.product-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(240,165,0,.3);
+  box-shadow: 0 10px 32px rgba(0,0,0,.4);
+}
+
+/* Header row: emoji + meta */
+.pc-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 16px 0;
+}
+.pc-emoji {
+  font-size: 36px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.pc-meta { flex: 1; min-width: 0; }
+.pc-game {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .8px;
+  color: var(--accent);
+  margin-bottom: 5px;
+  display: block;
+}
+.pc-badges {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+/* Body */
+.pc-body {
+  padding: 10px 16px 12px;
+  flex: 1;
+}
+.pc-name {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--text);
+  margin: 0 0 4px;
+  line-height: 1.3;
+}
+.pc-sub {
+  color: var(--muted);
+  font-size: 12px;
+  margin: 0 0 8px;
+}
+.pc-stars {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Footer row: price + button */
+.pc-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px 14px;
+  border-top: 1px solid var(--border);
+}
+.pc-price {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+.price-main {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 800;
+  font-size: 20px;
+  color: var(--accent);
+}
+.product-old-price {
+  color: var(--muted);
+  text-decoration: line-through;
+  font-size: 12px;
+}
+
+/* Badges */
+.badge-hot { background: rgba(239,68,68,.15); color: #ef4444; }
