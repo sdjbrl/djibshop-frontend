@@ -75,6 +75,14 @@ const API = {
     return data.users;
   },
 
+  async deleteUser(id) {
+    return this._req('DELETE', `/api/users/${id}`);
+  },
+
+  async changePassword(currentPassword, newPassword) {
+    return this._req('PUT', '/api/auth/change-password', { currentPassword, newPassword });
+  },
+
   // ── CONTACT ──────────────────────────────────────
   async sendContact(form) {
     return this._req('POST', '/api/contact', form);

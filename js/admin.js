@@ -113,21 +113,119 @@ async function loadUsers() {
   try {
     const users = await Promise.race([
       API.getAllUsers(),
-      new Promise((_,r)=>setTimeout(()=>r(new Error('timeout')),8000))
+      new Promise((_,r) => setTimeout(() => r(new Error('timeout')), 8000))
     ]);
-    if (!users.length) { el.innerHTML=`<p style="text-align:center;color:var(--muted);padding:30px">Aucun client</p>`; return; }
-    el.innerHTML = `<table class="products-table"><thead><tr>
-      <th>Client</th><th>Email</th><th>Inscrit le</th>
-    </tr></thead><tbody>${users.map(u=>`<tr>
-      <td><div style="display:inline-flex;align-items:center;gap:10px">
-        <div class="user-avatar" style="width:30px;height:30px;font-size:11px">${u.name.slice(0,2).toUpperCase()}</div>${u.name}
-      </div></td>
-      <td style="color:var(--muted)">${u.email}</td>
-      <td style="color:var(--muted);font-size:12px">${new Date(u.createdAt).toLocaleDateString('fr-FR')}</td>
-    </tr>`).join('')}</tbody></table>`;
+    if (!users.length) {
+      el.innerHTML = `<p style="text-align:center;color:var(--muted);padding:30px">Aucun client inscrit</p>`;
+      return;
+    }
+    el.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+        <span style="color:var(--muted);font-size:13px">${users.length} client${users.length > 1 ? 's' : ''}</span>
+      </div>
+      <table class="products-table">
+        <thead><tr>
+          <th>Client</th>
+          <th>Email</th>
+          <th>Inscrit le</th>
+          <th style="text-align:center">Actions</th>
+        </tr></thead>
+        <tbody>
+          ${users.map(u => `<tr data-uid="${u._id}">
+            <td>
+              <div style="display:inline-flex;align-items:center;gap:10px">
+                <div class="user-avatar" style="width:30px;height:30px;font-size:11px">${u.name.slice(0,2).toUpperCase()}</div>
+                <span>${u.name}</span>
+              </div>
+            </td>
+            <td style="color:var(--muted);font-size:13px">${u.email}</td>
+            <td style="color:var(--muted);font-size:12px">${new Date(u.createdAt).toLocaleDateString('fr-FR')}</td>
+            <td style="text-align:center">
+              <button class="btn btn-sm delete-user-btn"
+                data-id="${u._id}" data-name="${u.name}" data-email="${u.email}"
+                style="background:rgba(239,68,68,.1);color:#ef4444;border:1px solid rgba(239,68,68,.25);padding:4px 10px;font-size:12px">
+                🗑 Supprimer
+              </button>
+            </td>
+          </tr>`).join('')}
+        </tbody>
+      </table>`;
+
+    // Bind delete buttons
+    el.querySelectorAll('.delete-user-btn').forEach(btn => {
+      btn.addEventListener('click', () => deleteUser(btn.dataset.id, btn.dataset.name, btn.dataset.email));
+    });
+
   } catch(e) {
     el.innerHTML = `<p style="text-align:center;color:var(--red);padding:20px">⚠️ Impossible de charger les clients (${e.message})</p>`;
   }
+}
+
+async function deleteUser(id, name, email) {
+  const ok = confirm(`⚠️ Supprimer le compte de ${name} (${email}) ?
+
+Ses commandes seront anonymisées. Cette action est irréversible.`);
+  if (!ok) return;
+  try {
+    await API.deleteUser(id);
+    // Supprimer la ligne du tableau immédiatement
+    document.querySelector(`tr[data-uid="${id}"]`)?.remove();
+    Toast.show(`✅ Compte de ${name} supprimé.`);
+    // Mettre à jour le compteur
+    const rows = document.querySelectorAll('#admin-users-list tbody tr').length;
+    const counter = document.querySelector('#admin-users-list span');
+    if (counter) counter.textContent = `${rows} client${rows > 1 ? 's' : ''}`;
+  } catch(e) {
+    Toast.show('Erreur : ' + e.message, 'error');
+  }
+}
+
+/* ── SETTINGS ────────────────────────────────────────── */
+let settingsInitialized = false;
+
+function initSettings() {
+  if (settingsInitialized) return;
+  settingsInitialized = true;
+
+  // Toggle password visibility
+  const toggleEye = (btnId, inputId) => {
+    document.getElementById(btnId)?.addEventListener('click', () => {
+      const input = document.getElementById(inputId);
+      input.type = input.type === 'password' ? 'text' : 'password';
+      document.getElementById(btnId).textContent = input.type === 'password' ? '👁' : '🙈';
+    });
+  };
+  toggleEye('cp-eye1', 'cp-current');
+  toggleEye('cp-eye2', 'cp-new');
+
+  document.getElementById('cp-save')?.addEventListener('click', async () => {
+    const errEl   = document.getElementById('cp-error');
+    const current = document.getElementById('cp-current').value;
+    const newPass = document.getElementById('cp-new').value;
+    const confirm = document.getElementById('cp-confirm').value;
+
+    errEl.textContent = '';
+
+    if (!current)            { errEl.textContent = 'Mot de passe actuel requis.'; return; }
+    if (newPass.length < 6)  { errEl.textContent = 'Nouveau mot de passe : minimum 6 caractères.'; return; }
+    if (newPass !== confirm)  { errEl.textContent = 'Les mots de passe ne correspondent pas.'; return; }
+    if (newPass === current)  { errEl.textContent = 'Le nouveau mot de passe doit être différent.'; return; }
+
+    const btn = document.getElementById('cp-save');
+    btn.disabled = true; btn.textContent = '⏳ Enregistrement…';
+
+    try {
+      await API.changePassword(current, newPass);
+      Toast.show('✅ Mot de passe modifié avec succès !');
+      document.getElementById('cp-current').value = '';
+      document.getElementById('cp-new').value     = '';
+      document.getElementById('cp-confirm').value = '';
+    } catch(e) {
+      errEl.textContent = e.message || 'Erreur serveur.';
+    } finally {
+      btn.disabled = false; btn.textContent = 'Enregistrer le nouveau mot de passe';
+    }
+  });
 }
 
 /* ── PRODUCT FORM ────────────────────────────────────── */
