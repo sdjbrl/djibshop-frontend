@@ -94,7 +94,32 @@ document.addEventListener('DOMContentLoaded', async () => {
           <label>Mot de passe</label>
           <a href="/forgot-password" class="btn btn-ghost btn-sm" style="display:inline-flex">🔑 Changer mon mot de passe</a>
         </div>
+        <div style="margin-top:24px;padding-top:20px;border-top:1px solid var(--border)">
+          <h4 style="font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px">Mes données (RGPD)</h4>
+          <p style="color:var(--muted);font-size:12px;margin-bottom:12px">
+            Conformément au RGPD, vous pouvez demander la suppression de votre compte et de vos données personnelles.
+            Vos commandes resteront anonymisées pendant 5 ans (obligation légale).
+          </p>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <a href="/politique-confidentialite" class="btn btn-ghost btn-sm" target="_blank">🔒 Politique de confidentialité</a>
+            <button id="delete-account-btn" class="btn btn-sm" style="background:rgba(239,68,68,.1);color:#ef4444;border:1px solid rgba(239,68,68,.25)">
+              🗑 Supprimer mon compte
+            </button>
+          </div>
+        </div>
       </div>`;
+    document.getElementById('delete-account-btn')?.addEventListener('click', async () => {
+      const ok = confirm('⚠️ Supprimer définitivement votre compte ?\n\nVos données personnelles seront effacées. Vos commandes resteront anonymisées 5 ans pour obligation légale.\n\nCette action est irréversible.');
+      if (!ok) return;
+      try {
+        await API.deleteAccount();
+        API.clearSession(); API.clearCart();
+        Toast.show('Compte supprimé. Au revoir !', 'warn');
+        setTimeout(() => window.location.href = '/', 1500);
+      } catch (e) {
+        Toast.show('Erreur : ' + e.message, 'error');
+      }
+    });
   }
 });
 

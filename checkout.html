@@ -86,7 +86,17 @@
                   <span class="payment-check">✓</span>
                 </div>
               </div>
-              <button id="step1-continue" class="btn btn-gold btn-lg btn-full">Continuer →</button>
+              <!-- Consentement paiement RGPD -->
+              <div class="consent-block" id="checkout-consent-block" style="margin-top:16px">
+                <input type="checkbox" id="consent-checkout" required>
+                <label for="consent-checkout">
+                  Je reconnais que les <strong>biens numériques</strong> (identifiants de compte) seront livrés immédiatement après paiement
+                  et renonce expressément à mon <strong>droit de rétractation</strong> conformément à l'article L221-28 du Code de la consommation.
+                  J'accepte les <a href="/cgv" target="_blank">CGV</a> et la <a href="/politique-confidentialite" target="_blank">politique de confidentialité</a>. *
+                </label>
+              </div>
+
+              <button id="step1-continue" class="btn btn-gold btn-lg btn-full" style="margin-top:12px">Continuer →</button>
             </div>
 
             <!-- Step 2: Payment details -->
@@ -142,6 +152,7 @@
   <script src="js/storage.js"></script>
   <script src="js/components.js"></script>
   <script src="js/auth.js"></script>
+  <script src="js/rgpd.js"></script>
   <script src="js/checkout.js"></script>
 </body>
 </html>

@@ -80,6 +80,11 @@ const API = {
     return this._req('POST', '/api/contact', form);
   },
 
+  // ── RGPD — Suppression du compte ─────────────────
+  async deleteAccount() {
+    return this._req('DELETE', '/api/auth/account');
+  },
+
   // ── CART (localStorage) ──────────────────────────
   getCart()        { try { return JSON.parse(localStorage.getItem('djib_cart')) || []; } catch { return []; } },
   setCart(cart)    { localStorage.setItem('djib_cart', JSON.stringify(cart)); },

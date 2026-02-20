@@ -152,7 +152,7 @@ function renderFooter() {
   if (!el) return;
   el.innerHTML = `
     <div class="container">
-      <div class="footer-grid">
+      <div class="footer-grid footer-grid-5">
         <div>
           <a href="/" style="display:inline-flex;align-items:center;gap:10px;text-decoration:none;margin-bottom:10px">
             <div style="width:36px;height:36px;background:linear-gradient(135deg,var(--accent),var(--accent-dk));border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px">🎮</div>
@@ -183,6 +183,12 @@ function renderFooter() {
           <a href="/contact"  class="footer-link">Nous contacter</a>
           <a href="https://x.com/flrdlsx" target="_blank" class="footer-link">Twitter / X</a>
           <a href="https://discord.com/users/sdjbrl" target="_blank" class="footer-link">Discord</a>
+        </div>
+        <div>
+          <div class="footer-col-title">Légal</div>
+          <a href="/cgv" class="footer-link">CGV</a>
+          <a href="/politique-confidentialite" class="footer-link">Politique de confidentialité</a>
+          <a href="/politique-confidentialite#cookies" class="footer-link">Gestion des cookies</a>
         </div>
       </div>
       <div class="footer-bottom">

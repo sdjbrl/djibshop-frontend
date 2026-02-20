@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Politique de confidentialité — Djib's Shop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/global.css">
+  <style>
+    .legal-page { max-width: 800px; margin: 0 auto; padding: 48px 24px 80px; }
+    .legal-title { font-family:'Rajdhani',sans-serif; font-size:36px; font-weight:800; color:var(--text); margin-bottom:6px; }
+    .legal-date  { color:var(--muted); font-size:13px; margin-bottom:40px; }
+    .legal-section { margin-bottom:36px; }
+    .legal-section h2 { font-family:'Rajdhani',sans-serif; font-size:20px; font-weight:700; color:var(--accent); margin-bottom:12px; padding-bottom:6px; border-bottom:1px solid var(--border); }
+    .legal-section h3 { font-family:'Rajdhani',sans-serif; font-size:16px; font-weight:600; color:var(--text); margin:14px 0 6px; }
+    .legal-section p  { color:var(--dim); font-size:14px; line-height:1.8; margin-bottom:10px; }
+    .legal-section ul { color:var(--dim); font-size:14px; line-height:1.8; padding-left:20px; margin-bottom:10px; }
+    .legal-section li { margin-bottom:4px; }
+    .legal-highlight { background:var(--bg3); border:1px solid var(--border); border-left:3px solid var(--accent); border-radius:8px; padding:14px 16px; margin:12px 0; }
+    .legal-highlight p { margin:0; color:var(--dim); font-size:13px; }
+    .processor-card { background:var(--bg3); border:1px solid var(--border); border-radius:10px; padding:14px 16px; margin:8px 0; display:flex; align-items:flex-start; gap:12px; }
+    .processor-logo { width:36px; height:36px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:11px; flex-shrink:0; }
+    .processor-info strong { color:var(--text); font-size:14px; display:block; margin-bottom:2px; }
+    .processor-info span { color:var(--muted); font-size:12px; }
+    .processor-info a { color:var(--accent); text-decoration:none; font-size:12px; }
+  </style>
+</head>
+<body>
+  <header id="header"></header>
+  <main>
+    <div class="legal-page">
+      <h1 class="legal-title">🔒 Politique de confidentialité</h1>
+      <p class="legal-date">Dernière mise à jour : janvier 2026 — Version 1.0</p>
+
+      <div class="legal-highlight">
+        <p>⚡ <strong>Résumé :</strong> Nous collectons uniquement les données nécessaires à votre commande (nom, email, historique d'achats). Nous ne vendons ni ne partageons vos données avec des tiers à des fins publicitaires. Vous pouvez demander la suppression de vos données à tout moment.</p>
+      </div>
+
+      <div class="legal-section">
+        <h2>1. Responsable du traitement</h2>
+        <p>Le responsable du traitement des données personnelles collectées sur <strong>djibshop.vercel.app</strong> est :</p>
+        <ul>
+          <li><strong>Identité :</strong> Djib's Shop — Exploitant individuel</li>
+          <li><strong>Contact :</strong> <a href="mailto:pro.saidahmed@yahoo.com" style="color:var(--accent)">pro.saidahmed@yahoo.com</a></li>
+          <li><strong>Twitter :</strong> @flrdlsx — Discord : sdjbrl</li>
+        </ul>
+      </div>
+
+      <div class="legal-section">
+        <h2>2. Données collectées et finalités</h2>
+
+        <h3>2.1 Données de compte</h3>
+        <ul>
+          <li><strong>Nom et prénom</strong> — Identification, personnalisation des emails</li>
+          <li><strong>Adresse email</strong> — Connexion, envoi de commandes et confirmations</li>
+          <li><strong>Mot de passe haché</strong> (bcrypt) — Authentification sécurisée</li>
+        </ul>
+        <p><strong>Base légale :</strong> Exécution du contrat (article 6.1.b RGPD)</p>
+
+        <h3>2.2 Données de commande</h3>
+        <ul>
+          <li>Identifiant de commande, articles commandés, montant</li>
+          <li>Identifiant de transaction Stripe ou PayPal (référence externe uniquement)</li>
+          <li>Date et heure de la commande</li>
+        </ul>
+        <p><strong>Base légale :</strong> Exécution du contrat + obligation légale de conservation (5 ans)</p>
+
+        <h3>2.3 Données de navigation (cookies)</h3>
+        <ul>
+          <li><strong>Cookies fonctionnels :</strong> Panier local (localStorage), token de session JWT. Durée : 30 jours.</li>
+          <li><strong>Cookies de paiement :</strong> Stripe et PayPal déposent leurs propres cookies lors des transactions. Ces cookies sont soumis à leurs politiques respectives.</li>
+        </ul>
+        <p><strong>Base légale :</strong> Intérêt légitime (fonctionnement du site) + consentement pour les cookies non essentiels</p>
+      </div>
+
+      <div class="legal-section">
+        <h2>3. Sous-traitants de paiement</h2>
+        <p>Nous n'avons <strong>jamais accès à vos données bancaires</strong>. Le paiement est entièrement traité par :</p>
+
+        <div class="processor-card">
+          <div class="processor-logo" style="background:#635bff;color:#fff">Stripe</div>
+          <div class="processor-info">
+            <strong>Stripe Payments Europe Ltd</strong>
+            <span>Traitement des paiements par carte bancaire, Apple Pay, Google Pay</span><br>
+            <a href="https://stripe.com/fr/privacy" target="_blank" rel="noopener">Politique de confidentialité Stripe →</a>
+          </div>
+        </div>
+
+        <div class="processor-card">
+          <div class="processor-logo" style="background:#003087;color:#009cde">PP</div>
+          <div class="processor-info">
+            <strong>PayPal (Europe) S.à r.l.</strong>
+            <span>Traitement des paiements via compte PayPal</span><br>
+            <a href="https://www.paypal.com/fr/webapps/mpp/ua/privacy-full" target="_blank" rel="noopener">Politique de confidentialité PayPal →</a>
+          </div>
+        </div>
+
+        <div class="legal-highlight" style="margin-top:12px">
+          <p>🔐 Stripe et PayPal sont certifiés <strong>PCI DSS niveau 1</strong> (le plus haut niveau de certification de sécurité des paiements) et sont conformes au RGPD. Ils agissent en tant que <strong>sous-traitants au sens de l'article 28 RGPD</strong>.</p>
+        </div>
+      </div>
+
+      <div class="legal-section">
+        <h2>4. Durée de conservation</h2>
+        <ul>
+          <li><strong>Données de compte :</strong> Durée de vie du compte + 1 an après suppression</li>
+          <li><strong>Données de commande :</strong> 5 ans (obligation comptable légale, article L123-22 Code de commerce)</li>
+          <li><strong>Logs de connexion :</strong> 1 an maximum</li>
+          <li><strong>Tokens de réinitialisation de mot de passe :</strong> 1 heure (suppression automatique)</li>
+        </ul>
+      </div>
+
+      <div class="legal-section">
+        <h2>5. Vos droits (RGPD)</h2>
+        <p>Conformément aux articles 15 à 22 du RGPD, vous disposez des droits suivants :</p>
+        <ul>
+          <li>🔍 <strong>Droit d'accès</strong> — Obtenir une copie de vos données</li>
+          <li>✏️ <strong>Droit de rectification</strong> — Corriger des données inexactes</li>
+          <li>🗑️ <strong>Droit à l'effacement</strong> (« droit à l'oubli ») — Demander la suppression de vos données</li>
+          <li>⏸️ <strong>Droit à la limitation</strong> — Suspendre un traitement contesté</li>
+          <li>📦 <strong>Droit à la portabilité</strong> — Recevoir vos données dans un format lisible</li>
+          <li>🚫 <strong>Droit d'opposition</strong> — Vous opposer à un traitement basé sur l'intérêt légitime</li>
+        </ul>
+        <p>Pour exercer ces droits, écrivez à : <a href="mailto:pro.saidahmed@yahoo.com" style="color:var(--accent)">pro.saidahmed@yahoo.com</a> — Réponse sous 30 jours.</p>
+        <p>Vous pouvez également supprimer votre compte directement depuis <a href="/account" style="color:var(--accent)">votre espace personnel</a>.</p>
+        <p>En cas de désaccord, vous pouvez introduire une réclamation auprès de la <strong>CNIL</strong> : <a href="https://www.cnil.fr" target="_blank" style="color:var(--accent)">www.cnil.fr</a></p>
+      </div>
+
+      <div class="legal-section">
+        <h2>6. Sécurité des données</h2>
+        <ul>
+          <li>Connexions chiffrées <strong>HTTPS/TLS 1.3</strong> sur l'ensemble du site</li>
+          <li>Mots de passe hachés avec <strong>bcrypt</strong> (salage automatique)</li>
+          <li>Authentification par <strong>token JWT signé</strong> (expiration 30 jours)</li>
+          <li>Base de données hébergée sur <strong>MongoDB Atlas</strong> (serveurs AWS, UE)</li>
+          <li>Backend hébergé sur <strong>Railway</strong> (infrastructure sécurisée)</li>
+          <li>Aucune donnée bancaire stockée sur nos serveurs</li>
+        </ul>
+      </div>
+
+      <div class="legal-section">
+        <h2>7. Transferts hors UE</h2>
+        <p>MongoDB Atlas (AWS), Railway et Vercel peuvent stocker des données sur des serveurs aux États-Unis. Ces transferts sont encadrés par les <strong>clauses contractuelles types (CCT)</strong> approuvées par la Commission européenne, garantissant un niveau de protection adéquat.</p>
+      </div>
+
+      <div class="legal-section">
+        <h2>8. Modification de la politique</h2>
+        <p>Nous nous réservons le droit de modifier cette politique. Toute modification substantielle sera notifiée par email aux utilisateurs enregistrés. La date de dernière mise à jour est indiquée en haut de cette page.</p>
+      </div>
+    </div>
+  </main>
+  <footer id="footer"></footer>
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/rgpd.js"></script>
+  <script>document.addEventListener('DOMContentLoaded', () => { renderHeader(''); renderFooter(); });</script>
+</body>
+</html>

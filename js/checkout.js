@@ -143,6 +143,14 @@ function bindPaymentOptions() {
   });
   document.getElementById('step1-continue')?.addEventListener('click', () => {
     if (!checkoutState.method) { Toast.show('Choisissez un mode de paiement.','error'); return; }
+    const consent = document.getElementById('consent-checkout')?.checked;
+    if (!consent) {
+      Toast.show('Vous devez accepter les CGV avant de continuer.', 'error');
+      document.getElementById('checkout-consent-block')?.classList.add('consent-required');
+      document.getElementById('checkout-consent-block')?.scrollIntoView({ behavior:'smooth', block:'center' });
+      return;
+    }
+    document.getElementById('checkout-consent-block')?.classList.remove('consent-required');
     renderStep(2); renderPaymentForm();
   });
 }

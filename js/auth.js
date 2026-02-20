@@ -65,6 +65,14 @@ function initRegister() {
     const pass  = passI.value;
     const pass2 = pass2I.value;
 
+    // Vérification consentement RGPD
+    const consentCGV = document.getElementById('consent-cgv')?.checked;
+    if (!consentCGV) {
+      errEl.textContent = 'Vous devez accepter les CGV et la politique de confidentialité.';
+      document.getElementById('consent-block-1')?.classList.add('consent-required');
+      return;
+    }
+    document.getElementById('consent-block-1')?.classList.remove('consent-required');
     if (!name)               { errEl.textContent = 'Nom requis.'; return; }
     if (!email.includes('@')){ errEl.textContent = 'Email invalide.'; return; }
     if (pass.length < 6)     { errEl.textContent = 'Mot de passe : min 6 caractères.'; return; }
