@@ -435,47 +435,37 @@ button { font-family: 'Inter', sans-serif; }
 .badge-hot { background: rgba(239,68,68,.15); color: #ef4444; }
 
 /* ══════════════════════════════════════════════
-   CART — Panier sidebar
+   CART — Panier sidebar (2 éléments séparés)
    ══════════════════════════════════════════════ */
 
-/* Fond sombre (backdrop) */
-#cart-overlay {
+/* Fond sombre — élément indépendant dans <body> */
+#cart-backdrop {
   display: none;
   position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.65);
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,.7);
   backdrop-filter: blur(3px);
-  z-index: 1000;
+  z-index: 9000;
+  cursor: pointer;
 }
-#cart-overlay.open { display: block; }
+#cart-backdrop.open { display: block; }
 
-/* Sidebar — positionnée directement, pas via flex */
-.cart-sidebar {
+/* Sidebar — élément indépendant dans <body> */
+#cart-overlay {
   position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: 420px;
-  max-width: 100vw;
+  top: 0; right: 0; bottom: 0;
+  width: 420px; max-width: 100vw;
   background: var(--bg2);
   border-left: 1px solid var(--border);
-  z-index: 1001;         /* au-dessus du backdrop */
+  z-index: 9001;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
   transform: translateX(100%);
   transition: transform .28s cubic-bezier(.4,0,.2,1);
+  box-shadow: -8px 0 40px rgba(0,0,0,.5);
 }
-#cart-overlay.open .cart-sidebar {
+#cart-overlay.open {
   transform: translateX(0);
-}
-
-/* Backdrop cliquable pour fermer */
-.cart-backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 1000;
-  cursor: pointer;
 }
 
 /* En-tête */
@@ -483,16 +473,13 @@ button { font-family: 'Inter', sans-serif; }
   flex-shrink: 0;
   padding: 16px 20px;
   border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: flex; align-items: center; justify-content: space-between;
 }
 .cart-title {
-  font-family: 'Rajdhani', sans-serif;
-  font-weight: 700; font-size: 18px;
+  font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 18px;
 }
 
-/* Articles — flex:1 + min-height:0 = scroll dans conteneur flex */
+/* Zone articles — flex:1 + min-height:0 pour que overflow fonctionne */
 .cart-items {
   flex: 1;
   min-height: 0;
@@ -534,7 +521,7 @@ button { font-family: 'Inter', sans-serif; }
   width: 28px; height: 28px; background: none; border: none;
   color: var(--dim); font-size: 16px; font-weight: 700; cursor: pointer;
   display: flex; align-items: center; justify-content: center;
-  transition: background .12s, color .12s; line-height: 1;
+  transition: background .12s, color .12s;
 }
 .qty-btn:hover:not(:disabled) { background: var(--accent-gl); color: var(--accent); }
 .qty-btn:disabled { opacity: .3; cursor: not-allowed; }
@@ -566,7 +553,7 @@ button { font-family: 'Inter', sans-serif; }
   font-family: 'Rajdhani', sans-serif; font-weight: 800; font-size: 24px; color: var(--accent);
 }
 
-@media (max-width: 480px) { .cart-sidebar { width: 100vw; } }
+@media (max-width: 480px) { #cart-overlay { width: 100vw; } }
 
 /* ══════════════════════════════════════════════
    ACCOUNT DROPDOWN
