@@ -88,7 +88,7 @@ const Storage = {
       id: 'admin',
       name: 'Admin',
       email: 'admin@djibshop.com',
-      password: 'Admin@2025',
+      password: 'Kawthar2604@',
       isAdmin: true,
       createdAt: new Date().toISOString(),
     };
