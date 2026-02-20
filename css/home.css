@@ -1,0 +1,194 @@
+/* ══════════════════════════════════════════════
+   DJIB'S SHOP — Home Page
+   ══════════════════════════════════════════════ */
+
+/* ─── HERO ─── */
+.hero {
+  background: linear-gradient(135deg, #08091a 0%, #0e0d20 50%, #08091a 100%);
+  padding: 90px 20px 80px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(circle at 20% 50%, rgba(240,165,0,.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 50%, rgba(79,142,247,.07) 0%, transparent 50%);
+  pointer-events: none;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 100px; padding: 5px 16px;
+  font-size: 12px; color: var(--dim); margin-bottom: 28px;
+}
+.hero-badge-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--green); flex-shrink:0;
+  box-shadow: 0 0 8px var(--green);
+}
+.hero-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 800;
+  font-size: clamp(38px, 7vw, 70px);
+  color: var(--text);
+  line-height: 1.08;
+  margin-bottom: 18px;
+}
+.hero-title .highlight { color: var(--accent); }
+.hero-sub {
+  color: var(--dim); font-size: 17px; line-height: 1.7;
+  max-width: 540px; margin: 0 auto 36px;
+}
+.hero-ctas { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 56px; }
+.hero-stats {
+  display: flex; gap: 40px; justify-content: center;
+  flex-wrap: wrap;
+}
+.hero-stat-value {
+  font-family: 'Rajdhani', sans-serif; font-weight: 800;
+  font-size: 28px; color: var(--accent);
+}
+.hero-stat-label { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+/* ─── SECTION HEADERS ─── */
+.section { padding: 60px 20px; }
+.section-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 28px;
+}
+.section-title {
+  font-family: 'Rajdhani', sans-serif; font-weight: 700;
+  font-size: 26px; color: var(--text);
+}
+.section-link {
+  display: flex; align-items: center; gap: 5px;
+  font-size: 13px; font-weight: 600; color: var(--accent);
+  text-decoration: none; transition: gap var(--trans);
+}
+.section-link:hover { gap: 8px; }
+
+/* ─── GAME GRID ─── */
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 12px;
+}
+.game-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 18px 12px;
+  text-align: center; cursor: pointer; text-decoration: none;
+  transition: all var(--trans); display: block;
+}
+.game-card:hover {
+  border-color: var(--accent); background: var(--accent-gl);
+  transform: translateY(-2px);
+}
+.game-emoji { font-size: 30px; margin-bottom: 8px; }
+.game-name {
+  font-family: 'Rajdhani', sans-serif; font-weight: 600;
+  font-size: 13px; color: var(--dim);
+}
+
+/* ─── PRODUCT CARDS ─── */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 16px;
+}
+.product-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); overflow: hidden;
+  display: flex; flex-direction: column; cursor: pointer;
+  transition: transform var(--trans), box-shadow var(--trans);
+}
+.product-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(0,0,0,.5);
+  border-color: rgba(240,165,0,.25);
+}
+.product-banner {
+  background: linear-gradient(135deg, var(--bg3), var(--bg2));
+  padding: 22px 16px 16px;
+  position: relative; text-align: center;
+}
+.product-emoji { font-size: 44px; display:block; margin-bottom: 6px; }
+.product-game {
+  font-family: 'Rajdhani', sans-serif; font-weight: 700;
+  font-size: 11px; color: var(--accent); text-transform: uppercase; letter-spacing: 1px;
+}
+.product-hot-tag {
+  position: absolute; top: 10px; right: 10px;
+  background: #ff4444; color: #fff; font-size: 9px;
+  font-weight: 800; padding: 2px 7px; border-radius: 4px; letter-spacing: .5px;
+}
+.product-body {
+  padding: 14px 14px 16px; flex: 1; display: flex; flex-direction: column; gap: 8px;
+}
+.product-badges { display: flex; gap: 4px; flex-wrap: wrap; }
+.product-name {
+  font-family: 'Rajdhani', sans-serif; font-weight: 600; font-size: 14px;
+  color: var(--text); line-height: 1.3; flex:1;
+}
+.product-sub { color: var(--muted); font-size: 11px; }
+.star-row { display: flex; align-items: center; gap: 5px; }
+.stars { color: var(--accent); font-size: 12px; }
+.review-count { color: var(--muted); font-size: 11px; }
+.product-footer {
+  display: flex; align-items: center; justify-content: space-between; margin-top: 4px;
+}
+.product-old-price {
+  color: var(--muted); font-size: 12px; text-decoration: line-through; margin-right: 6px;
+}
+.product-price {
+  font-family: 'Rajdhani', sans-serif; font-weight: 700;
+  font-size: 22px; color: var(--accent);
+}
+
+/* ─── TRUST BADGES ─── */
+.trust-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 14px;
+}
+.trust-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 20px 18px;
+  display: flex; gap: 14px; align-items: flex-start;
+}
+.trust-emoji { font-size: 28px; flex-shrink:0; }
+.trust-title {
+  font-family:'Rajdhani',sans-serif; font-weight:700;
+  font-size:15px; color:var(--text); margin-bottom:4px;
+}
+.trust-desc { font-size:12px; color:var(--muted); line-height:1.5; }
+
+/* ─── FAQ ─── */
+.faq-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(440px, 1fr));
+  gap: 12px;
+}
+.faq-item {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); overflow: hidden;
+}
+.faq-item summary {
+  padding: 14px 18px; cursor: pointer; font-family: 'Rajdhani', sans-serif;
+  font-weight: 600; font-size: 15px; color: var(--text);
+  list-style: none; display: flex; justify-content: space-between; align-items: center;
+  user-select: none;
+}
+.faq-item summary::-webkit-details-marker { display:none; }
+.faq-item summary::after {
+  content: '﹀'; color: var(--muted); font-size: 14px; transition: transform var(--trans);
+}
+.faq-item[open] summary::after { transform: rotate(180deg); }
+.faq-answer { padding: 0 18px 14px; color: var(--dim); font-size: 13px; line-height: 1.6; }
+
+@media (max-width: 640px) {
+  .faq-grid { grid-template-columns: 1fr; }
+  .hero { padding: 60px 20px 50px; }
+}

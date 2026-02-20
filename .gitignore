@@ -1,0 +1,11 @@
+# Backend secrets — NE JAMAIS committer
+backend/.env
+backend/node_modules/
+
+# OS
+.DS_Store
+Thumbs.db
+*.log
+
+# Vercel
+.vercel/

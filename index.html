@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Djib's Shop — Comptes Gaming #1</title>
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/home.css">
+</head>
+<body>
+
+  <header id="header"></header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div style="position:relative;max-width:720px;margin:0 auto">
+        <div class="hero-badge">
+          <span class="hero-badge-dot"></span>
+          Plus de 42 000 commandes livrées avec succès
+        </div>
+        <h1 class="hero-title">
+          Les meilleurs comptes<br>
+          <span class="highlight">jeux mobiles</span>
+        </h1>
+        <p class="hero-sub">
+          Comptes farmed &amp; starter pour Dokkan Battle, Genshin Impact, Star Rail et bien plus.
+          Livraison instantanée, paiement sécurisé via Stripe &amp; PayPal.
+        </p>
+        <div class="hero-ctas">
+          <a href="shop" class="btn btn-gold btn-lg">Parcourir la boutique →</a>
+          <a href="register" class="btn btn-ghost btn-lg">Créer un compte</a>
+        </div>
+        <div class="hero-stats">
+          <div>
+            <div class="hero-stat-value">31 560+</div>
+            <div class="hero-stat-label">Clients satisfaits</div>
+          </div>
+          <div>
+            <div class="hero-stat-value">42 000+</div>
+            <div class="hero-stat-label">Commandes livrées</div>
+          </div>
+          <div>
+            <div class="hero-stat-value">4.9 / 5</div>
+            <div class="hero-stat-label">Note moyenne</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GAMES -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Choisir votre jeu</h2>
+          <a href="shop" class="section-link">Voir tout ›</a>
+        </div>
+        <div class="games-grid" id="games-grid"></div>
+      </div>
+    </section>
+
+    <!-- FEATURED -->
+    <section class="section" style="padding-top:0">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Produits populaires</h2>
+          <a href="shop" class="section-link">Voir tout ›</a>
+        </div>
+        <div class="products-grid" id="featured-grid"></div>
+      </div>
+    </section>
+
+    <!-- TRUST -->
+    <section class="section" style="background:var(--bg2);padding-top:50px;padding-bottom:50px">
+      <div class="container">
+        <h2 class="section-title" style="margin-bottom:24px;text-align:center">Pourquoi nous choisir ?</h2>
+        <div class="trust-grid">
+          <div class="trust-card">
+            <div class="trust-emoji">⚡</div>
+            <div>
+              <div class="trust-title">Livraison instantanée</div>
+              <div class="trust-desc">Comptes "Instant" envoyés dès la confirmation du paiement, autres sous 30 min.</div>
+            </div>
+          </div>
+          <div class="trust-card">
+            <div class="trust-emoji">🔒</div>
+            <div>
+              <div class="trust-title">Paiement sécurisé</div>
+              <div class="trust-desc">Stripe &amp; PayPal, chiffrement SSL, aucune donnée bancaire stockée.</div>
+            </div>
+          </div>
+          <div class="trust-card">
+            <div class="trust-emoji">🛡️</div>
+            <div>
+              <div class="trust-title">Comptes vérifiés</div>
+              <div class="trust-desc">Chaque compte est testé manuellement avant d'être mis en vente.</div>
+            </div>
+          </div>
+          <div class="trust-card">
+            <div class="trust-emoji">💬</div>
+            <div>
+              <div class="trust-title">Support disponible</div>
+              <div class="trust-desc">Contactez-nous sur Twitter ou Discord, réponse rapide garantie.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section">
+      <div class="container">
+        <h2 class="section-title" style="margin-bottom:24px">Questions fréquentes</h2>
+        <div class="faq-grid">
+          <details class="faq-item">
+            <summary>Quand vais-je recevoir mon compte ?</summary>
+            <div class="faq-answer">
+              Pour les articles marqués "⚡ Instant", les identifiants apparaissent directement sur la page de confirmation.
+              Les autres sont envoyés par email sous 30 minutes pendant les heures ouvrées (GMT+1).
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>Comment contacter le support ?</summary>
+            <div class="faq-answer">
+              Retrouvez-nous sur <a href="https://x.com/flrdlsx" target="_blank" style="color:var(--accent)">Twitter @flrdlsx</a>
+              ou Discord <strong>sdjbrl</strong>. Nous ne vous contacterons jamais en premier.
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>Y a-t-il un code promo ?</summary>
+            <div class="faq-answer">
+              Utilisez le code <strong style="color:var(--accent)">DJIB10</strong> lors du checkout pour 10% de réduction sur votre première commande.
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>Puis-je avoir un remboursement ?</summary>
+            <div class="faq-answer">
+              En raison de la nature des articles virtuels, les remboursements sont impossibles après livraison.
+              Contactez-nous avant réception en cas de problème.
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="footer"></footer>
+
+  <div id="toast-container"></div>
+
+  <script src="js/config.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/home.js"></script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mon Compte — Djib's Shop</title>
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/account.css">
+</head>
+<body>
+
+  <header id="header"></header>
+
+  <main>
+    <div class="account-page container fade-in">
+      <div class="account-header">
+        <div class="account-welcome" id="account-welcome">Mon Compte</div>
+        <div class="account-email" id="account-email"></div>
+      </div>
+
+      <!-- Profile Card -->
+      <div class="profile-card card" id="profile-card"></div>
+
+      <!-- Stats -->
+      <div class="account-stats" id="account-stats">
+        <div class="stat-card"><div class="stat-emoji"></div><div class="stat-value">…</div><div class="stat-label"></div></div>
+        <div class="stat-card"><div class="stat-emoji"></div><div class="stat-value">…</div><div class="stat-label"></div></div>
+        <div class="stat-card"><div class="stat-emoji"></div><div class="stat-value">…</div><div class="stat-label"></div></div>
+        <div class="stat-card"><div class="stat-emoji"></div><div class="stat-value">…</div><div class="stat-label"></div></div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="account-tabs">
+        <button class="account-tab active" data-tab="orders">📦 Mes commandes</button>
+        <button class="account-tab" data-tab="profile">👤 Mon profil</button>
+      </div>
+
+      <!-- Orders Panel -->
+      <div class="tab-panel" id="panel-orders">
+        <div id="orders-list">
+          <div class="loading-center"><div class="spinner"></div></div>
+        </div>
+      </div>
+
+      <!-- Profile Panel -->
+      <div class="tab-panel" id="panel-profile" style="display:none">
+        <div id="profile-info"></div>
+      </div>
+    </div>
+  </main>
+
+  <footer id="footer"></footer>
+  <div id="toast-container"></div>
+
+  <script src="js/config.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/account.js"></script>
+</body>
+</html>

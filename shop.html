@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boutique — Djib's Shop</title>
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/shop.css">
+</head>
+<body>
+
+  <header id="header"></header>
+
+  <main>
+    <div class="shop-header container">
+      <h1 class="shop-title">Boutique</h1>
+      <p class="shop-count"><span id="products-count">…</span> disponible</p>
+
+      <!-- Filter Bar -->
+      <div class="filter-bar">
+        <div class="filter-search">
+          <span class="filter-search-icon">🔍</span>
+          <input type="text" id="filter-search" placeholder="Rechercher un produit…">
+        </div>
+        <select id="filter-game" class="filter-select">
+          <option value="Tous">Tous les jeux</option>
+        </select>
+        <select id="filter-sort" class="filter-select">
+          <option value="popular">Plus populaires</option>
+          <option value="price-asc">Prix croissant</option>
+          <option value="price-desc">Prix décroissant</option>
+          <option value="newest">Plus récents</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="shop-layout container">
+      <!-- Sidebar -->
+      <aside class="shop-sidebar">
+        <div class="sidebar-section">
+          <div class="sidebar-title">Jeux</div>
+          <div id="sidebar-games"></div>
+        </div>
+        <div class="sidebar-section" style="margin-top:20px">
+          <div class="sidebar-title">Catégorie</div>
+          <div id="sidebar-cats"></div>
+        </div>
+      </aside>
+
+      <!-- Products -->
+      <div>
+        <div class="sort-bar">
+          <span id="products-count-inline" style="font-size:13px;color:var(--muted)"></span>
+        </div>
+        <div class="products-grid" id="products-grid">
+          <div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--muted)">
+            <div class="spinner"></div>
+            <p style="margin-top:14px">Chargement…</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer id="footer"></footer>
+  <div id="toast-container"></div>
+
+  <script src="js/config.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/shop.js"></script>
+</body>
+</html>

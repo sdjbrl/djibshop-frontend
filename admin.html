@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — Djib's Shop</title>
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+  <header id="header"></header>
+
+  <main>
+    <div class="admin-page container fade-in">
+      <!-- Header -->
+      <div class="admin-header">
+        <div>
+          <h1 class="admin-title">⚙️ Panneau Admin</h1>
+          <p style="color:var(--muted);font-size:13px;margin-top:4px">Gérez vos produits, commandes et clients</p>
+        </div>
+        <div class="admin-badge">🔐 Accès administrateur</div>
+      </div>
+
+      <!-- Stats -->
+      <div class="admin-stats" id="admin-stats">
+        <div class="admin-stat"><div class="admin-stat-label">Produits actifs</div><div class="admin-stat-value">…</div></div>
+        <div class="admin-stat"><div class="admin-stat-label">Commandes totales</div><div class="admin-stat-value">…</div></div>
+        <div class="admin-stat"><div class="admin-stat-label">Revenus totaux</div><div class="admin-stat-value">…</div></div>
+        <div class="admin-stat"><div class="admin-stat-label">Clients inscrits</div><div class="admin-stat-value">…</div></div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="admin-tabs">
+        <button class="admin-tab active" data-tab="products">📦 Produits</button>
+        <button class="admin-tab" data-tab="orders">🛒 Commandes</button>
+        <button class="admin-tab" data-tab="users">👥 Clients</button>
+      </div>
+
+      <!-- ── PRODUCTS PANEL ── -->
+      <div class="admin-panel fade-in" id="admin-panel-products">
+        <!-- Add Button -->
+        <div style="display:flex;justify-content:flex-end;margin-bottom:16px">
+          <button id="show-add-form" class="btn btn-gold">➕ Nouveau produit</button>
+        </div>
+
+        <!-- Form -->
+        <div class="product-form-card" id="product-form-card" style="display:none">
+          <div class="form-title" id="form-title">➕ Ajouter un produit</div>
+          <form id="product-form" novalidate>
+            <div class="form-grid">
+              <!-- Name -->
+              <div class="form-group form-grid-full">
+                <label for="form-name">Nom du produit *</label>
+                <input type="text" id="form-name" class="form-control" placeholder="[Global] Farmed Account 13 000+ DS" required>
+              </div>
+              <!-- Game -->
+              <div class="form-group">
+                <label for="form-game">Jeu *</label>
+                <select id="form-game" class="form-control"></select>
+              </div>
+              <!-- Sub -->
+              <div class="form-group">
+                <label for="form-sub">Plateforme / Région *</label>
+                <input type="text" id="form-sub" class="form-control" placeholder="Android & iOS / Tous serveurs">
+              </div>
+              <!-- Price -->
+              <div class="form-group">
+                <label for="form-price">Prix ($) *</label>
+                <input type="number" id="form-price" class="form-control" placeholder="18.00" min="0" step="0.01">
+              </div>
+              <!-- Old Price -->
+              <div class="form-group">
+                <label for="form-old-price">Ancien prix ($) <span style="color:var(--muted)">(optionnel)</span></label>
+                <input type="number" id="form-old-price" class="form-control" placeholder="25.00" min="0" step="0.01">
+              </div>
+              <!-- Category -->
+              <div class="form-group">
+                <label for="form-category">Catégorie *</label>
+                <select id="form-category" class="form-control">
+                  <option value="starter">Starter</option>
+                  <option value="farmed">Farmed</option>
+                  <option value="premium">Premium</option>
+                </select>
+              </div>
+              <!-- Badge -->
+              <div class="form-group">
+                <label for="form-badge">Badge</label>
+                <select id="form-badge" class="form-control">
+                  <option value="">— Aucun —</option>
+                  <option value="instant">⚡ Instant Delivery</option>
+                  <option value="premium">🏆 Premium</option>
+                  <option value="off">% OFF</option>
+                </select>
+              </div>
+              <!-- Rating -->
+              <div class="form-group">
+                <label for="form-rating">Note (1-5)</label>
+                <input type="number" id="form-rating" class="form-control" placeholder="5.0" min="1" max="5" step="0.1" value="5.0">
+              </div>
+              <!-- Reviews -->
+              <div class="form-group">
+                <label for="form-reviews">Nombre d'avis</label>
+                <input type="number" id="form-reviews" class="form-control" placeholder="12" min="0" value="0">
+              </div>
+              <!-- Hot -->
+              <div class="form-group" style="display:flex;align-items:center;gap:10px;padding-top:20px">
+                <input type="checkbox" id="form-hot" style="width:18px;height:18px;accent-color:var(--accent)">
+                <label for="form-hot" style="margin-bottom:0;cursor:pointer">🔥 Marquer comme HOT</label>
+              </div>
+              <!-- Emoji -->
+              <div class="form-group form-grid-full">
+                <label>Emoji du jeu</label>
+                <div class="emoji-picker" id="emoji-picker"></div>
+                <input type="hidden" id="form-emoji" value="🎮">
+              </div>
+            </div>
+            <div class="form-actions">
+              <button type="button" id="form-cancel" class="btn btn-ghost">Annuler</button>
+              <button type="submit" class="btn btn-gold" style="min-width:140px">💾 Enregistrer</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Table -->
+        <div class="products-table-wrap">
+          <table class="products-table">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Produit</th>
+                <th>Catégorie</th>
+                <th>Prix</th>
+                <th>Avis</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="products-tbody">
+              <tr><td colspan="6" style="text-align:center;padding:30px"><div class="spinner"></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ── ORDERS PANEL ── -->
+      <div class="admin-panel" id="admin-panel-orders" style="display:none">
+        <div class="orders-list" id="admin-orders-list">
+          <div class="loading-center"><div class="spinner"></div></div>
+        </div>
+      </div>
+
+      <!-- ── USERS PANEL ── -->
+      <div class="admin-panel" id="admin-panel-users" style="display:none">
+        <div id="admin-users-list">
+          <div class="loading-center"><div class="spinner"></div></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer id="footer"></footer>
+  <div id="toast-container"></div>
+
+  <script src="js/config.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

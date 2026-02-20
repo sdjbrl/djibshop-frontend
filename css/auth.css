@@ -1,0 +1,81 @@
+/* ══════════════════════════════════════════════
+   DJIB'S SHOP — Auth Pages (Login / Register)
+   ══════════════════════════════════════════════ */
+
+.auth-page {
+  min-height: calc(100vh - 62px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 40px 20px;
+  background: radial-gradient(ellipse at 50% 0%, rgba(240,165,0,.06) 0%, transparent 60%);
+}
+.auth-box {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 16px; width: 100%; max-width: 440px;
+  padding: 36px 32px;
+}
+.auth-logo {
+  text-align: center; margin-bottom: 28px;
+}
+.auth-logo-icon {
+  width: 54px; height: 54px; margin: 0 auto 10px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-dk));
+  border-radius: 14px; display: flex; align-items: center;
+  justify-content: center; font-size: 24px;
+}
+.auth-logo-name {
+  font-family: 'Rajdhani', sans-serif; font-weight: 800;
+  font-size: 22px; color: var(--text);
+}
+.auth-logo-name span { color: var(--accent); }
+.auth-title {
+  font-family: 'Rajdhani', sans-serif; font-weight: 700;
+  font-size: 26px; color: var(--text); margin-bottom: 6px; text-align: center;
+}
+.auth-subtitle { color: var(--muted); font-size: 14px; text-align: center; margin-bottom: 28px; }
+
+/* Input with icon */
+.input-icon-wrap { position: relative; }
+.input-icon {
+  position: absolute; left: 12px; top: 50%;
+  transform: translateY(-50%); color: var(--muted); pointer-events:none;
+}
+.input-icon-wrap .form-control { padding-left: 36px; }
+.input-eye {
+  position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+  background: none; border: none; color: var(--muted); cursor: pointer;
+  padding: 4px; transition: color var(--trans); display:flex; align-items:center;
+}
+.input-eye:hover { color: var(--dim); }
+
+/* Submit area */
+.auth-submit { margin-top: 8px; }
+.auth-divider {
+  display: flex; align-items: center; gap: 12px;
+  font-size: 12px; color: var(--muted); margin: 20px 0;
+}
+.auth-divider::before, .auth-divider::after {
+  content: ''; flex: 1; height: 1px; background: var(--border);
+}
+.auth-switch {
+  text-align: center; font-size: 13px; color: var(--muted); margin-top: 18px;
+}
+.auth-switch a { color: var(--accent); font-weight: 600; text-decoration: none; }
+.auth-switch a:hover { text-decoration: underline; }
+
+/* Security note */
+.auth-security {
+  display: flex; align-items: center; gap: 8px;
+  background: #0f1e14; border: 1px solid rgba(34,197,94,.2);
+  border-radius: 7px; padding: 9px 13px; font-size: 12px; color: var(--green);
+  margin-bottom: 20px;
+}
+
+/* Success state */
+.auth-success {
+  text-align: center; padding: 20px 0;
+}
+.auth-success-icon { font-size: 52px; margin-bottom: 14px; }
+.auth-success-title {
+  font-family: 'Rajdhani', sans-serif; font-size: 24px; color: var(--green); margin-bottom: 6px;
+}
+.auth-success-sub { color: var(--muted); font-size: 13px; }

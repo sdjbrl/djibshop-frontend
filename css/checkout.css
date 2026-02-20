@@ -1,0 +1,119 @@
+/* ══════════════════════════════════════════════
+   DJIB'S SHOP — Checkout Page
+   ══════════════════════════════════════════════ */
+
+.checkout-page { padding: 40px 20px 60px; }
+.checkout-title {
+  font-family:'Rajdhani',sans-serif; font-weight:800;
+  font-size:32px; color:var(--text); margin-bottom:28px;
+}
+
+/* ─── PROGRESS ─── */
+.checkout-steps {
+  display:flex; gap:10px; margin-bottom:36px;
+}
+.checkout-step {
+  flex:1; display:flex; flex-direction:column; align-items:center; gap:6px;
+}
+.step-bar {
+  width:100%; height:4px; border-radius:2px;
+  background:var(--border); transition:background var(--trans);
+}
+.step-bar.done { background:var(--accent); }
+.step-label { font-size:11px; color:var(--muted); }
+.checkout-step.active .step-label { color:var(--accent); }
+
+/* ─── LAYOUT ─── */
+.checkout-layout {
+  display:grid; grid-template-columns:1fr 360px; gap:28px; align-items:start;
+}
+.checkout-main {}
+.checkout-summary {
+  background:var(--card); border:1px solid var(--border);
+  border-radius:var(--radius); padding:22px; position:sticky; top:82px;
+}
+.summary-title {
+  font-family:'Rajdhani',sans-serif; font-weight:700;
+  font-size:17px; color:var(--text); margin-bottom:16px;
+}
+.summary-item {
+  display:flex; gap:10px; align-items:center; padding:8px 0;
+  border-bottom:1px solid rgba(30,34,53,.5);
+}
+.summary-item:last-of-type { border-bottom:none; }
+.summary-item-emoji { font-size:18px; flex-shrink:0; }
+.summary-item-name { flex:1; font-size:12px; color:var(--dim); }
+.summary-item-price {
+  font-family:'Rajdhani',sans-serif; font-weight:700; font-size:14px; color:var(--accent);
+}
+.summary-total {
+  display:flex; justify-content:space-between; align-items:center;
+  padding-top:14px; margin-top:4px; border-top:1px solid var(--border);
+}
+.summary-total-label { font-weight:600; color:var(--text); }
+.summary-total-value {
+  font-family:'Rajdhani',sans-serif; font-weight:700;
+  font-size:26px; color:var(--accent);
+}
+.summary-security {
+  display:flex; align-items:center; gap:7px; margin-top:14px;
+  padding:9px 12px; background:#0f1e14; border:1px solid rgba(34,197,94,.2);
+  border-radius:7px; font-size:12px; color:var(--green);
+}
+
+/* ─── PAYMENT METHODS ─── */
+.payment-options { display:flex; flex-direction:column; gap:12px; margin-bottom:24px; }
+.payment-option {
+  border:2px solid var(--border); border-radius:var(--radius);
+  padding:16px; cursor:pointer; display:flex;
+  align-items:center; gap:16px; background:transparent;
+  transition:all var(--trans);
+}
+.payment-option:hover { border-color:rgba(240,165,0,.4); }
+.payment-option.selected { border-color:var(--accent); background:var(--accent-gl); }
+.payment-option-logo {
+  width:56px; height:36px; border-radius:7px; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  font-weight:800; font-size:13px;
+}
+.payment-option-info { flex:1; }
+.payment-option-name { font-weight:600; font-size:14px; color:var(--text); }
+.payment-option-sub { font-size:11px; color:var(--muted); margin-top:2px; }
+.payment-check { color:var(--accent); margin-left:auto; display:none; }
+.payment-option.selected .payment-check { display:block; }
+
+/* ─── CARD FORM ─── */
+.card-form-section { margin-bottom:20px; }
+.card-ssl {
+  display:flex; align-items:center; gap:8px; padding:9px 13px;
+  background:#0d1520; border:1px solid rgba(79,142,247,.2);
+  border-radius:7px; font-size:12px; color:var(--blue); margin-bottom:16px;
+}
+.card-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+
+/* ─── CONFIRMATION ─── */
+.checkout-success {
+  text-align:center; padding:40px 20px;
+}
+.checkout-success-icon { font-size:64px; margin-bottom:16px; }
+.checkout-success-title {
+  font-family:'Rajdhani',sans-serif; font-weight:800;
+  font-size:30px; color:var(--green); margin-bottom:8px;
+}
+.checkout-success-sub { color:var(--dim); font-size:14px; max-width:400px; margin:0 auto 24px; line-height:1.7; }
+.checkout-order-id {
+  display:inline-block; background:var(--bg3); border:1px solid var(--border);
+  border-radius:7px; padding:8px 18px; font-family:'Rajdhani',sans-serif;
+  font-weight:700; font-size:16px; color:var(--accent); margin-bottom:24px; letter-spacing:.5px;
+}
+
+/* ─── EMPTY CART ─── */
+.checkout-empty {
+  text-align:center; padding:70px 20px;
+}
+.checkout-empty-icon { font-size:52px; margin-bottom:14px; opacity:.3; }
+
+@media (max-width:900px) {
+  .checkout-layout { grid-template-columns:1fr; }
+  .checkout-summary { position:static; }
+}

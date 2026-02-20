@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout — Djib's Shop</title>
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/checkout.css">
+
+  <!--
+    ══════════════════════════════════════════════
+    STRIPE.JS  —  NE PAS DÉPLACER CE SCRIPT
+    Stripe exige que ce script soit chargé dans
+    le <head> de la page de paiement pour la
+    détection de fraude et la conformité PCI-DSS.
+    ══════════════════════════════════════════════
+  -->
+  <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+
+  <header id="header"></header>
+
+  <main>
+    <div class="checkout-page container">
+      <h1 class="checkout-title">Paiement sécurisé</h1>
+
+      <!-- Progress Steps -->
+      <div class="checkout-steps">
+        <div class="checkout-step active">
+          <div class="step-bar done"></div>
+          <span class="step-label">Méthode</span>
+        </div>
+        <div class="checkout-step">
+          <div class="step-bar"></div>
+          <span class="step-label">Détails</span>
+        </div>
+        <div class="checkout-step">
+          <div class="step-bar"></div>
+          <span class="step-label">Confirmer</span>
+        </div>
+      </div>
+
+      <div id="checkout-main-content">
+        <div class="checkout-layout">
+          <!-- LEFT: steps -->
+          <div class="checkout-main">
+
+            <!-- Step 1: Choose method -->
+            <div class="step-panel" id="step-1">
+              <div style="font-family:Rajdhani,sans-serif;font-weight:700;font-size:19px;color:var(--text);margin-bottom:18px">
+                Choisissez votre mode de paiement
+              </div>
+              <div class="payment-options">
+                <!-- Stripe -->
+                <div class="payment-option" data-method="stripe">
+                  <div class="payment-option-logo" style="background:#635bff">
+                    <span style="color:#fff;font-weight:900;font-size:12px;font-family:sans-serif">stripe</span>
+                  </div>
+                  <div class="payment-option-info">
+                    <div class="payment-option-name">Carte bancaire (Stripe)</div>
+                    <div class="payment-option-sub">Visa, Mastercard, CB, American Express</div>
+                  </div>
+                  <span class="payment-check">✓</span>
+                </div>
+                <!-- PayPal -->
+                <div class="payment-option" data-method="paypal">
+                  <div class="payment-option-logo" style="background:#003087">
+                    <span style="color:#009cde;font-weight:900;font-size:13px;font-family:sans-serif">PayPal</span>
+                  </div>
+                  <div class="payment-option-info">
+                    <div class="payment-option-name">PayPal</div>
+                    <div class="payment-option-sub">Paiement via votre compte PayPal</div>
+                  </div>
+                  <span class="payment-check">✓</span>
+                </div>
+              </div>
+              <button id="step1-continue" class="btn btn-gold btn-lg btn-full">Continuer →</button>
+            </div>
+
+            <!-- Step 2: Payment details -->
+            <div class="step-panel" id="step-2" style="display:none">
+              <div style="font-family:Rajdhani,sans-serif;font-weight:700;font-size:19px;color:var(--text);margin-bottom:18px">
+                Informations de paiement
+              </div>
+              <div class="card-form-section" id="payment-form-area"></div>
+              <div style="display:flex;gap:10px;margin-top:8px">
+                <button id="step2-back"     class="btn btn-ghost" style="flex:1">← Retour</button>
+                <button id="step2-continue" class="btn btn-gold"  style="flex:2;padding:13px">Vérifier →</button>
+              </div>
+            </div>
+
+            <!-- Step 3: Confirm -->
+            <div class="step-panel" id="step-3" style="display:none">
+              <div style="font-family:Rajdhani,sans-serif;font-weight:700;font-size:19px;color:var(--text);margin-bottom:18px">
+                Confirmer la commande
+              </div>
+              <div id="confirm-details"></div>
+              <div style="display:flex;gap:10px;margin-top:16px">
+                <button id="step3-back" class="btn btn-ghost" style="flex:1">← Retour</button>
+                <button id="step3-pay"  class="btn btn-gold"  style="flex:2;padding:13px;font-size:16px">Payer →</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT: summary -->
+          <div class="checkout-summary">
+            <div class="summary-title">🛒 Récapitulatif</div>
+            <div id="summary-items"></div>
+            <div class="summary-total">
+              <span class="summary-total-label">Total</span>
+              <span class="summary-total-value" id="summary-total">$0.00</span>
+            </div>
+            <div class="summary-security">
+              🔒 Paiement sécurisé SSL
+            </div>
+            <div style="margin-top:12px;font-size:11px;color:var(--muted);line-height:1.6">
+              Code promo : <strong style="color:var(--accent)">DJIB10</strong> pour −10% sur votre 1ère commande.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer id="footer"></footer>
+  <div id="toast-container"></div>
+
+  <script src="js/config.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/checkout.js"></script>
+</body>
+</html>
