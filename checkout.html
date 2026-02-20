@@ -51,6 +51,17 @@
               <div style="font-family:Rajdhani,sans-serif;font-weight:700;font-size:19px;color:var(--text);margin-bottom:18px">
                 Choisissez votre mode de paiement
               </div>
+              <!-- Apple Pay / Google Pay express (affiché si disponible) -->
+              <div id="express-pay-section" style="display:none;margin-bottom:18px">
+                <div style="font-size:12px;color:var(--muted);text-align:center;margin-bottom:10px;letter-spacing:.5px;text-transform:uppercase">Paiement express</div>
+                <div id="payment-request-btn" style="min-height:44px"></div>
+                <div style="display:flex;align-items:center;gap:10px;margin:14px 0 4px">
+                  <div style="flex:1;height:1px;background:var(--border)"></div>
+                  <span style="color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.5px">ou payer avec</span>
+                  <div style="flex:1;height:1px;background:var(--border)"></div>
+                </div>
+              </div>
+
               <div class="payment-options">
                 <!-- Stripe -->
                 <div class="payment-option" data-method="stripe">
@@ -58,8 +69,8 @@
                     <span style="color:#fff;font-weight:900;font-size:12px;font-family:sans-serif">stripe</span>
                   </div>
                   <div class="payment-option-info">
-                    <div class="payment-option-name">Carte bancaire (Stripe)</div>
-                    <div class="payment-option-sub">Visa, Mastercard, CB, American Express</div>
+                    <div class="payment-option-name">Carte bancaire</div>
+                    <div class="payment-option-sub">Visa, Mastercard, CB, Amex</div>
                   </div>
                   <span class="payment-check">✓</span>
                 </div>
