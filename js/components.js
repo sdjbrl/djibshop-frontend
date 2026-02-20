@@ -113,7 +113,6 @@ function renderHeader(activePage) {
 
     <!-- Panier latéral -->
     <div id="cart-overlay">
-      <div class="cart-backdrop"></div>
       <aside class="cart-sidebar">
         <div class="cart-header">
           <div class="cart-title">🛒 Mon Panier</div>
@@ -133,7 +132,10 @@ function renderHeader(activePage) {
   // Panier
   document.getElementById('cart-toggle').addEventListener('click', () => CartUI.open());
   document.getElementById('cart-close').addEventListener('click',  () => CartUI.close());
-  document.getElementById('cart-overlay').querySelector('.cart-backdrop').addEventListener('click', () => CartUI.close());
+  // Clic sur le fond (overlay lui-même) pour fermer
+  document.getElementById('cart-overlay').addEventListener('click', (e) => {
+    if (e.target === document.getElementById('cart-overlay')) CartUI.close();
+  });
 
   // Dropdown compte
   if (session) {
