@@ -91,6 +91,7 @@ function initRegister() {
 /* ─── LOGOUT ─────────────────────────────────── */
 function logout() {
   API.clearSession();
+  API.clearCart();
   window.location.href = '/';
 }
 

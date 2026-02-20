@@ -157,6 +157,7 @@ function renderHeader(activePage) {
 
     document.getElementById('header-logout-btn')?.addEventListener('click', () => {
       API.clearSession();
+      API.clearCart();
       window.location.href = '/';
     });
   }
@@ -250,11 +251,12 @@ const CartUI = {
     const o = document.getElementById('cart-overlay');
     if (!o) return;
     o.style.display = 'flex';
-    // Force reflow before transition
-    requestAnimationFrame(() => {
-      o.classList.add('open');
-      CartUI.renderItems();
-    });
+    o.style.opacity = '0';
+    CartUI.renderItems();
+    // Force reflow then animate
+    void o.offsetHeight;
+    o.classList.add('open');
+    o.style.opacity = '';
     document.body.style.overflow = 'hidden';
   },
 
