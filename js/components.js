@@ -250,13 +250,9 @@ const CartUI = {
   open() {
     const o = document.getElementById('cart-overlay');
     if (!o) return;
-    o.style.display = 'flex';
-    o.style.opacity = '0';
+    // renderItems BEFORE showing (so content is there when visible)
     CartUI.renderItems();
-    // Force reflow then animate
-    void o.offsetHeight;
     o.classList.add('open');
-    o.style.opacity = '';
     document.body.style.overflow = 'hidden';
   },
 
@@ -264,7 +260,6 @@ const CartUI = {
     const o = document.getElementById('cart-overlay');
     if (!o) return;
     o.classList.remove('open');
-    setTimeout(() => { if (!o.classList.contains('open')) o.style.display = 'none'; }, 300);
     document.body.style.overflow = '';
   },
 

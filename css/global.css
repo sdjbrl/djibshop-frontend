@@ -264,49 +264,10 @@ button { font-family: 'Inter', sans-serif; }
 /* ══════════════════════════════════════════════
    CART SIDEBAR
    ══════════════════════════════════════════════ */
-/* #cart-overlay and .cart-backdrop — see "CART v3" section below */
-/* .cart-sidebar — see "CART v3" section below */
-/* .cart-header — see CART v3 */
 .cart-title {
   font-family:'Rajdhani',sans-serif; font-weight:700; font-size:19px;
   display: flex; align-items: center; gap: 8px;
 }
-/* .cart-items — see CART v3 */
-.cart-item {
-  display: flex; gap: 12px; padding: 12px 0;
-  border-bottom: 1px solid var(--border);
-}
-.cart-item-emoji {
-  width: 44px; height: 44px; background: var(--bg3); border-radius: 8px;
-  display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink:0;
-}
-.cart-item-info { flex:1; min-width:0; }
-.cart-item-name {
-  font-family:'Rajdhani',sans-serif; font-size:13px; font-weight:600;
-  color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
-}
-.cart-item-game { color:var(--muted); font-size:11px; margin-top:2px; }
-.cart-item-footer { display:flex; align-items:center; justify-content:space-between; margin-top:6px; }
-.cart-item-price { color:var(--accent); font-family:'Rajdhani',sans-serif; font-weight:700; font-size:15px; }
-.cart-remove {
-  background:none; border:none; color:var(--muted); cursor:pointer;
-  font-size:11px; display:flex; align-items:center; gap:3px;
-  transition:color var(--trans); padding: 2px 4px; border-radius: 4px;
-}
-.cart-remove:hover { color:var(--red); }
-/* .cart-footer — see CART v3 */
-.cart-total {
-  display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;
-}
-.cart-total-label { color:var(--dim); font-size:14px; }
-.cart-total-value {
-  font-family:'Rajdhani',sans-serif; font-weight:700;
-  font-size:24px; color:var(--accent);
-}
-.cart-empty {
-  text-align:center; padding:60px 20px; color:var(--muted);
-}
-.cart-empty-icon { font-size:48px; margin-bottom:12px; opacity:.3; }
 
 /* ══════════════════════════════════════════════
    FOOTER
@@ -363,7 +324,6 @@ button { font-family: 'Inter', sans-serif; }
 @media (max-width: 640px) {
   .header-nav { display: none; }
   .footer-grid { grid-template-columns: 1fr; gap: 24px; }
-  .cart-sidebar { width: 100%; }
   .hamburger { display: flex; }
 }
 
@@ -477,120 +437,143 @@ button { font-family: 'Inter', sans-serif; }
 /* ══════════════════════════════════════════════
    CART v3 — Panier avec quantités
    ══════════════════════════════════════════════ */
+
 #cart-overlay {
-  position: fixed; inset: 0; z-index: 1000;
-  display: none; /* géré via JS */
-  opacity: 0;
-  transition: opacity .25s;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 1000;
+  display: none;           /* hidden by default */
+  flex-direction: row;     /* backdrop | sidebar */
+  align-items: stretch;
 }
-#cart-overlay.open { opacity: 1; }
+#cart-overlay.open {
+  display: flex;
+}
 
+/* Zone grisée cliquable pour fermer */
+.cart-backdrop {
+  flex: 1;
+  background: rgba(0,0,0,.6);
+  backdrop-filter: blur(3px);
+}
+
+/* Panneau latéral */
 .cart-sidebar {
-  position: absolute; right: 0; top: 0; bottom: 0;
-  width: 400px; max-width: 100vw;
-  background: var(--bg2); border-left: 1px solid var(--border);
-  display: flex; flex-direction: column;
-  transform: translateX(100%);
-  transition: transform .3s cubic-bezier(.4,0,.2,1);
-  z-index: 2;
+  width: 420px;
+  max-width: 100vw;
+  background: var(--bg2);
+  border-left: 1px solid var(--border);
+  /* Flex column: header | items (scroll) | footer */
+  display: flex;
+  flex-direction: column;
+  height: 100%;             /* fill full viewport height */
+  overflow: hidden;
+  /* Slide-in animation */
+  animation: cart-slide-in .25s ease;
 }
-#cart-overlay.open .cart-sidebar { transform: translateX(0); }
+@keyframes cart-slide-in {
+  from { transform: translateX(100%); }
+  to   { transform: translateX(0); }
+}
 
+/* En-tête */
 .cart-header {
-  padding: 18px 20px;
-  border-bottom: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: space-between;
   flex-shrink: 0;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 .cart-title {
-  font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 18px;
-  display: flex; align-items: center; gap: 8px;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
 }
+
+/* Zone articles — CRITIQUE: flex:1 + min-height:0 pour que overflow-y marche */
 .cart-items {
   flex: 1;
+  min-height: 0;           /* MUST have this for flex overflow to work */
   overflow-y: auto;
-  padding: 8px 16px;
-  min-height: 0; /* IMPORTANT — fixe le bug d'articles invisibles */
+  padding: 4px 16px;
 }
+
+/* Un article */
 .cart-item {
-  display: flex; gap: 12px;
+  display: flex;
+  gap: 12px;
   padding: 12px 0;
   border-bottom: 1px solid var(--border);
 }
 .cart-item:last-child { border-bottom: none; }
 .cart-item-emoji {
-  width: 46px; height: 46px;
+  width: 44px; height: 44px;
   background: var(--bg3); border-radius: 10px;
   display: flex; align-items: center; justify-content: center;
   font-size: 22px; flex-shrink: 0;
 }
-.cart-item-info { flex: 1; min-width: 0; }
+.cart-item-info {
+  flex: 1; min-width: 0;
+  display: flex; flex-direction: column; gap: 2px;
+}
 .cart-item-name {
   font-family: 'Rajdhani', sans-serif; font-size: 13px; font-weight: 600;
   color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
-.cart-item-game { color: var(--muted); font-size: 11px; margin: 2px 0 8px; }
-.cart-item-row {
-  display: flex; align-items: center; gap: 10px;
+.cart-item-game { color: var(--muted); font-size: 11px; }
+.cart-item-row  { display: flex; align-items: center; gap: 8px; margin-top: 5px; }
+.cart-item-price {
+  color: var(--accent); font-family: 'Rajdhani', sans-serif;
+  font-weight: 700; font-size: 14px; margin-left: auto;
 }
 
-/* Contrôle quantité */
+/* Contrôleur quantité */
 .qty-control {
-  display: flex; align-items: center; gap: 0;
-  background: var(--bg3); border: 1px solid var(--border);
-  border-radius: 8px; overflow: hidden;
+  display: inline-flex; align-items: center;
+  background: var(--bg3); border: 1px solid var(--border); border-radius: 8px;
+  overflow: hidden;
 }
 .qty-btn {
-  width: 28px; height: 28px;
-  background: none; border: none;
-  color: var(--dim); font-size: 16px; font-weight: 700;
-  cursor: pointer; display: flex; align-items: center; justify-content: center;
-  transition: background var(--trans), color var(--trans);
-  line-height: 1;
+  width: 28px; height: 28px; background: none; border: none;
+  color: var(--dim); font-size: 16px; font-weight: 700; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background .12s, color .12s;
 }
 .qty-btn:hover:not(:disabled) { background: var(--accent-gl); color: var(--accent); }
 .qty-btn:disabled { opacity: .3; cursor: not-allowed; }
 .qty-value {
   font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 14px;
-  color: var(--text); min-width: 24px; text-align: center;
+  color: var(--text); min-width: 26px; text-align: center;
 }
-.cart-item-price {
-  color: var(--accent); font-family: 'Rajdhani', sans-serif;
-  font-weight: 700; font-size: 14px;
-  margin-left: auto;
-}
+
+/* Supprimer */
 .cart-remove {
-  background: none; border: none;
-  color: var(--muted); cursor: pointer; font-size: 13px;
-  padding: 4px; border-radius: 5px;
-  transition: color var(--trans), background var(--trans);
+  background: none; border: none; color: var(--muted); cursor: pointer;
+  font-size: 13px; padding: 4px; border-radius: 5px;
+  transition: color .12s, background .12s; flex-shrink: 0;
 }
-.cart-remove:hover { color: var(--red); background: rgba(239,68,68,.1); }
+.cart-remove:hover { color: #ef4444; background: rgba(239,68,68,.1); }
 
-.cart-empty {
-  text-align: center; padding: 60px 20px; color: var(--muted);
-}
-.cart-empty-icon { font-size: 48px; margin-bottom: 12px; opacity: .3; }
+/* Panier vide */
+.cart-empty { text-align: center; padding: 60px 20px; color: var(--muted); }
+.cart-empty-icon { font-size: 48px; margin-bottom: 12px; opacity: .35; }
 
+/* Pied de page fixe */
 .cart-footer {
+  flex-shrink: 0;
   padding: 16px 20px;
   border-top: 1px solid var(--border);
-  flex-shrink: 0;
 }
 .cart-total {
-  display: flex; justify-content: space-between; align-items: center;
-  margin-bottom: 14px;
+  display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;
 }
 .cart-total-label { color: var(--dim); font-size: 14px; }
 .cart-total-value {
-  font-family: 'Rajdhani', sans-serif; font-weight: 800;
-  font-size: 24px; color: var(--accent);
+  font-family: 'Rajdhani', sans-serif; font-weight: 800; font-size: 24px; color: var(--accent);
 }
-.cart-backdrop {
-  position: absolute; inset: 0;
-  background: rgba(0,0,0,.65);
-  backdrop-filter: blur(3px);
-}
+
+@media (max-width: 480px) { .cart-sidebar { width: 100vw; } }
 
 /* ══════════════════════════════════════════════
    ACCOUNT DROPDOWN
