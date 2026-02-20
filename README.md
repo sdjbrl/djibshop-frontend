@@ -65,7 +65,7 @@ NODE_ENV               production
 ```bash
 cd backend/
 git init && git add . && git commit -m "v2"
-git remote add origin https://github.com/sdjbrl/djibshop-backend.git
+git remote add origin https://github.com/VOUS/djibshop-backend.git
 git push -u origin main
 ```
 Railway → New Project → Deploy from GitHub → ajouter les Variables (tableau ci-dessus)
@@ -79,7 +79,7 @@ Vercel redéploie automatiquement.
 
 ### 5 · Vérification
 ```
-https://sdjbrl.up.railway.app/health
+https://VOTRE-APP.up.railway.app/health
 ```
 ```json
 { "status": "ok", "mongo": true, "stripe": true, "paypal": true, "smtp": true }

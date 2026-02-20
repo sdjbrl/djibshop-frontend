@@ -85,3 +85,11 @@ const API = {
   setCart(cart)    { localStorage.setItem('djib_cart', JSON.stringify(cart)); },
   clearCart()      { localStorage.removeItem('djib_cart'); },
 };
+
+// Patch: add forgotPassword and resetPassword
+API.forgotPassword = function(email) {
+  return this._req('POST', '/api/auth/forgot-password', { email });
+};
+API.resetPassword = function(token, password) {
+  return this._req('POST', '/api/auth/reset-password', { token, password });
+};

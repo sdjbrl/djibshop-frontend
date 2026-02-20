@@ -1,5 +1,5 @@
 /* ══════════════════════════════════════════════
-   components.js — Composants partagés
+   components.js — Composants partagés v3
    ══════════════════════════════════════════════ */
 
 /* ─── TOAST ─────────────────────────────────── */
@@ -74,26 +74,49 @@ function renderHeader(activePage) {
           ${session?.isAdmin ? `<a href="/admin" class="nav-link ${activePage==='admin'?'active':''}" style="color:var(--accent)">Admin ⚙️</a>` : ''}
         </nav>
         <div class="header-actions">
+          <!-- Panier -->
           <button class="cart-btn" id="cart-toggle" aria-label="Panier">
-            🛒
-            ${count > 0 ? `<span class="cart-count">${count}</span>` : ''}
+            🛒${count > 0 ? `<span class="cart-count">${count}</span>` : ''}
           </button>
-          ${session
-            ? `<a href="/account" class="user-chip ${activePage==='account'?'active':''}">
-                 <div class="user-avatar">${session.name.slice(0,2).toUpperCase()}</div>
-                 ${session.name.split(' ')[0]}
-               </a>`
-            : `<a href="/login"    class="btn btn-ghost btn-sm">Connexion</a>
-               <a href="/register" class="btn btn-gold btn-sm">S'inscrire</a>`
+
+          <!-- Compte connecté → dropdown -->
+          ${session ? `
+            <div class="user-dropdown-wrap" id="user-dropdown-wrap">
+              <button class="user-chip ${activePage==='account'?'active':''}" id="user-chip-btn" type="button">
+                <div class="user-avatar">${session.name.slice(0,2).toUpperCase()}</div>
+                <span>${session.name.split(' ')[0]}</span>
+                <span class="dropdown-arrow">▾</span>
+              </button>
+              <div class="user-dropdown" id="user-dropdown">
+                <div class="user-dropdown-header">
+                  <div class="user-avatar user-avatar-lg">${session.name.slice(0,2).toUpperCase()}</div>
+                  <div>
+                    <div class="user-dropdown-name">${session.name}</div>
+                    <div class="user-dropdown-email">${session.email}</div>
+                  </div>
+                </div>
+                <div class="user-dropdown-divider"></div>
+                <a href="/account" class="user-dropdown-item">👤 Mon compte</a>
+                <a href="/account" class="user-dropdown-item">📦 Mes commandes</a>
+                <div class="user-dropdown-divider"></div>
+                <button class="user-dropdown-item user-dropdown-logout" id="header-logout-btn" type="button">
+                  🚪 Se déconnecter
+                </button>
+              </div>
+            </div>`
+          : `<a href="/login"    class="btn btn-ghost btn-sm">Connexion</a>
+             <a href="/register" class="btn btn-gold btn-sm">S'inscrire</a>`
           }
         </div>
       </div>
     </div>
+
+    <!-- Panier latéral -->
     <div id="cart-overlay">
       <div class="cart-backdrop"></div>
-      <aside class="cart-sidebar slide-in">
+      <aside class="cart-sidebar">
         <div class="cart-header">
-          <div class="cart-title">🛒 Panier</div>
+          <div class="cart-title">🛒 Mon Panier</div>
           <button class="modal-close" id="cart-close">✕</button>
         </div>
         <div class="cart-items" id="cart-items-list"></div>
@@ -102,14 +125,42 @@ function renderHeader(activePage) {
             <span class="cart-total-label">Total</span>
             <span class="cart-total-value" id="cart-total-value">$0.00</span>
           </div>
-          <a href="/checkout" class="btn btn-gold btn-full btn-lg">Passer commande →</a>
+          <a href="/checkout" class="btn btn-gold btn-full btn-lg" style="text-align:center">Passer commande →</a>
         </div>
       </aside>
     </div>`;
 
-  document.getElementById('cart-toggle').addEventListener('click', CartUI.open);
-  document.getElementById('cart-close').addEventListener('click', CartUI.close);
-  document.getElementById('cart-overlay').querySelector('.cart-backdrop').addEventListener('click', CartUI.close);
+  // Panier
+  document.getElementById('cart-toggle').addEventListener('click', () => CartUI.open());
+  document.getElementById('cart-close').addEventListener('click',  () => CartUI.close());
+  document.getElementById('cart-overlay').querySelector('.cart-backdrop').addEventListener('click', () => CartUI.close());
+
+  // Dropdown compte
+  if (session) {
+    const wrap   = document.getElementById('user-dropdown-wrap');
+    const btn    = document.getElementById('user-chip-btn');
+    const menu   = document.getElementById('user-dropdown');
+
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const open = wrap.classList.toggle('open');
+      menu.style.display = open ? 'block' : 'none';
+    });
+
+    // Fermer si clic ailleurs
+    document.addEventListener('click', () => {
+      wrap.classList.remove('open');
+      menu.style.display = 'none';
+    }, { once: false, capture: true, passive: true });
+    // Empêcher la fermeture sur clic dans le menu
+    menu.addEventListener('click', e => e.stopPropagation());
+
+    document.getElementById('header-logout-btn')?.addEventListener('click', () => {
+      API.clearSession();
+      window.location.href = '/';
+    });
+  }
+
   CartUI.renderItems();
 }
 
@@ -133,11 +184,11 @@ function renderFooter() {
         </div>
         <div>
           <div class="footer-col-title">Boutique</div>
-          <a href="/shop?game=Dokkan+Battle"       class="footer-link">Dokkan Battle</a>
-          <a href="/shop?game=Genshin+Impact"       class="footer-link">Genshin Impact</a>
-          <a href="/shop?game=Honkai+Star+Rail"     class="footer-link">Star Rail</a>
-          <a href="/shop?game=Zenless+Zone+Zero"    class="footer-link">Zenless Zone Zero</a>
-          <a href="/shop"                           class="footer-link">Tous les jeux →</a>
+          <a href="/shop?game=Dokkan+Battle"    class="footer-link">Dokkan Battle</a>
+          <a href="/shop?game=Genshin+Impact"    class="footer-link">Genshin Impact</a>
+          <a href="/shop?game=Honkai+Star+Rail"  class="footer-link">Star Rail</a>
+          <a href="/shop?game=Zenless+Zone+Zero" class="footer-link">Zenless Zone Zero</a>
+          <a href="/shop"                        class="footer-link">Tous les jeux →</a>
         </div>
         <div>
           <div class="footer-col-title">Mon compte</div>
@@ -147,8 +198,8 @@ function renderFooter() {
         </div>
         <div>
           <div class="footer-col-title">Support</div>
-          <a href="/contact"                                    class="footer-link">Nous contacter</a>
-          <a href="https://x.com/flrdlsx"  target="_blank"     class="footer-link">Twitter / X</a>
+          <a href="/contact"  class="footer-link">Nous contacter</a>
+          <a href="https://x.com/flrdlsx" target="_blank" class="footer-link">Twitter / X</a>
           <a href="https://discord.com/users/sdjbrl" target="_blank" class="footer-link">Discord</a>
         </div>
       </div>
@@ -159,14 +210,13 @@ function renderFooter() {
     </div>`;
 }
 
-/* ─── PRODUCT CARD (design épuré) ────────────── */
+/* ─── PRODUCT CARD ───────────────────────────── */
 function buildProductCard(p) {
-  const badgeMap = { instant: '<span class="badge badge-instant">⚡ Instant</span>', premium: '<span class="badge badge-premium">🏆 Premium</span>', off: '<span class="badge badge-off">% OFF</span>' };
-  const badge  = p.badge ? badgeMap[p.badge] || '' : '';
-  const stars  = '★'.repeat(Math.round(p.rating)) + '☆'.repeat(5 - Math.round(p.rating));
-  const oldP   = p.oldPrice ? `<span class="product-old-price">$${p.oldPrice.toFixed(2)}</span>` : '';
+  const badgeMap = { instant:'<span class="badge badge-instant">⚡ Instant</span>', premium:'<span class="badge badge-premium">🏆 Premium</span>', off:'<span class="badge badge-off">% OFF</span>' };
+  const badge    = p.badge ? (badgeMap[p.badge] || '') : '';
+  const stars    = '★'.repeat(Math.round(p.rating)) + '☆'.repeat(5 - Math.round(p.rating));
+  const oldP     = p.oldPrice ? `<span class="product-old-price">$${p.oldPrice.toFixed(2)}</span>` : '';
   const catLabel = { starter:'Starter', farmed:'Farmed', premium:'Premium' }[p.category] || p.category;
-
   return `
     <article class="product-card" data-id="${p.id}">
       <div class="pc-head">
@@ -192,45 +242,93 @@ function buildProductCard(p) {
     </article>`;
 }
 
-/* ─── CART UI ────────────────────────────────── */
+/* ─── CART UI ─────────────────────────────────
+   Panier avec gestion des quantités (+/-)
+   ─────────────────────────────────────────── */
 const CartUI = {
   open() {
     const o = document.getElementById('cart-overlay');
-    if (o) { o.classList.add('open'); CartUI.renderItems(); }
+    if (!o) return;
+    o.style.display = 'flex';
+    // Force reflow before transition
+    requestAnimationFrame(() => {
+      o.classList.add('open');
+      CartUI.renderItems();
+    });
+    document.body.style.overflow = 'hidden';
   },
+
   close() {
-    document.getElementById('cart-overlay')?.classList.remove('open');
+    const o = document.getElementById('cart-overlay');
+    if (!o) return;
+    o.classList.remove('open');
+    setTimeout(() => { if (!o.classList.contains('open')) o.style.display = 'none'; }, 300);
+    document.body.style.overflow = '';
   },
+
   renderItems() {
-    const list   = document.getElementById('cart-items-list');
-    const footer = document.getElementById('cart-footer');
-    const totalEl= document.getElementById('cart-total-value');
+    const list    = document.getElementById('cart-items-list');
+    const footer  = document.getElementById('cart-footer');
+    const totalEl = document.getElementById('cart-total-value');
     if (!list) return;
+
     const cart = API.getCart();
+
     if (!cart.length) {
-      list.innerHTML = `<div class="cart-empty"><div class="cart-empty-icon">🛒</div>Votre panier est vide</div>`;
+      list.innerHTML = `
+        <div class="cart-empty">
+          <div class="cart-empty-icon">🛒</div>
+          <p>Votre panier est vide</p>
+          <a href="/shop" class="btn btn-ghost btn-sm" style="margin-top:10px" onclick="CartUI.close()">Parcourir →</a>
+        </div>`;
       if (footer) footer.style.display = 'none';
+      CartUI._updateBadge(0);
       return;
     }
-    list.innerHTML = cart.map(i => `
-      <div class="cart-item">
-        <div class="cart-item-emoji">${i.emoji}</div>
+
+    list.innerHTML = cart.map(item => `
+      <div class="cart-item" data-id="${item.id}">
+        <div class="cart-item-emoji">${item.emoji}</div>
         <div class="cart-item-info">
-          <div class="cart-item-name">${i.name}</div>
-          <div class="cart-item-game">${i.game}</div>
-          <div class="cart-item-footer">
-            <span class="cart-item-price">$${i.price.toFixed(2)}</span>
-            <button class="cart-remove" data-id="${i.id}">✕</button>
+          <div class="cart-item-name" title="${item.name}">${item.name.length > 38 ? item.name.slice(0,35)+'…' : item.name}</div>
+          <div class="cart-item-game">${item.game}</div>
+          <div class="cart-item-row">
+            <!-- Quantité -->
+            <div class="qty-control">
+              <button class="qty-btn qty-minus" data-id="${item.id}" ${(item.qty||1) <= 1 ? 'disabled' : ''}>−</button>
+              <span class="qty-value">${item.qty || 1}</span>
+              <button class="qty-btn qty-plus" data-id="${item.id}">+</button>
+            </div>
+            <!-- Prix unitaire × qty -->
+            <span class="cart-item-price">$${(item.price * (item.qty || 1)).toFixed(2)}</span>
+            <!-- Supprimer -->
+            <button class="cart-remove" data-id="${item.id}" title="Supprimer">🗑</button>
           </div>
         </div>
       </div>`).join('');
+
+    // Total
     const total = cart.reduce((s, i) => s + i.price * (i.qty || 1), 0);
+    const totalCount = cart.reduce((s, i) => s + (i.qty || 1), 0);
     if (totalEl) totalEl.textContent = `$${total.toFixed(2)}`;
-    if (footer) footer.style.display = 'block';
-    list.querySelectorAll('.cart-remove').forEach(btn => btn.addEventListener('click', () => CartUI.remove(btn.dataset.id)));
-    // Update badge
-    CartUI._updateBadge(cart.reduce((s,i) => s+(i.qty||1), 0));
+    if (footer)  footer.style.display = 'block';
+    CartUI._updateBadge(totalCount);
+
+    // Events
+    list.querySelectorAll('.qty-minus').forEach(b => b.addEventListener('click', e => {
+      e.stopPropagation();
+      CartUI.changeQty(b.dataset.id, -1);
+    }));
+    list.querySelectorAll('.qty-plus').forEach(b => b.addEventListener('click', e => {
+      e.stopPropagation();
+      CartUI.changeQty(b.dataset.id, +1);
+    }));
+    list.querySelectorAll('.cart-remove').forEach(b => b.addEventListener('click', e => {
+      e.stopPropagation();
+      CartUI.remove(b.dataset.id);
+    }));
   },
+
   add(product) {
     let cart = API.getCart();
     const idx = cart.findIndex(i => i.id === product.id);
@@ -238,22 +336,37 @@ const CartUI = {
     else cart.push({ ...product, qty: 1 });
     API.setCart(cart);
     CartUI.renderItems();
-    Toast.show(`${product.emoji} <strong>${product.name.slice(0,30)}…</strong> ajouté au panier`);
+    Toast.show(`${product.emoji} <strong>${product.name.slice(0,28)}…</strong> ajouté au panier`);
   },
+
+  changeQty(id, delta) {
+    let cart = API.getCart();
+    const idx = cart.findIndex(i => i.id === id);
+    if (idx < 0) return;
+    cart[idx].qty = Math.max(1, (cart[idx].qty || 1) + delta);
+    API.setCart(cart);
+    CartUI.renderItems();
+  },
+
   remove(id) {
     const cart = API.getCart().filter(i => i.id !== id);
     API.setCart(cart);
     CartUI.renderItems();
+    Toast.show('Article retiré du panier', 'warn');
   },
+
   clear() { API.clearCart(); CartUI.renderItems(); },
+
   _updateBadge(count) {
     const btn = document.getElementById('cart-toggle');
     if (!btn) return;
     let badge = btn.querySelector('.cart-count');
     if (count > 0) {
-      if (!badge) { badge = document.createElement('span'); badge.className='cart-count'; btn.appendChild(badge); }
+      if (!badge) { badge = document.createElement('span'); badge.className = 'cart-count'; btn.appendChild(badge); }
       badge.textContent = count;
-    } else { badge?.remove(); }
+    } else {
+      badge?.remove();
+    }
   },
 };
 
@@ -278,4 +391,15 @@ function openProductModal(product) {
     maxWidth: '480px',
     onReady(overlay) { overlay.querySelector('#modal-add-btn').addEventListener('click', () => CartUI.add(product)); }
   });
+}
+
+/* ─── AUTH GUARDS ────────────────────────────── */
+function requireAuth(redirectTo = '/login') {
+  if (!API.getSession()) { window.location.href = redirectTo; return false; }
+  return true;
+}
+function requireAdmin(redirectTo = '/') {
+  const s = API.getSession();
+  if (!s || !s.isAdmin) { window.location.href = redirectTo; return false; }
+  return true;
 }
