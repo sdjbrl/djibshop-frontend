@@ -25,7 +25,7 @@ const CONFIG = {
   // URL Railway de votre backend, format :
   // https://djibshop-backend-production.up.railway.app/
   // (sans slash final)
-BACKEND_URL: 'https://djibshop-backend-production.up.railway.app/',
+BACKEND_URL: 'https://djibshop-backend-production.up.railway.app',
 
   // ── SITE ────────────────────────────────────
   // Détecté automatiquement depuis l'URL du navigateur
