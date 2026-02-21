@@ -23,7 +23,18 @@ const Storage = {
 
 // ─── Produits par défaut ─────────────────────────────
 (function initProducts() {
-  if (localStorage.getItem('djib_products')) return;
+  const PRODUCTS_VERSION = 'v2';
+  // Force reinit si produits vides ou version obsolète
+  const raw = localStorage.getItem('djib_products');
+  const version = localStorage.getItem('djib_products_version');
+  if (raw && version === PRODUCTS_VERSION) {
+    try {
+      const parsed = JSON.parse(raw);
+      if (parsed && parsed.length > 0) return; // OK, produits présents
+    } catch {}
+  }
+  // Sinon on (re)charge les produits par défaut
+  localStorage.removeItem('djib_products');
   const defaults = [
     { id:'p1',  game:'Dokkan Battle',      name:'[Global] Farmed Account 13 000+ DS',     sub:'Android & iOS',      price:18,  oldPrice:null, badge:'instant', category:'farmed',  emoji:'🐉', hot:true,  rating:5.0, reviews:42 },
     { id:'p2',  game:'Dokkan Battle',      name:'[Global] Fresh Starter 9 000 DS',        sub:'Android uniquement', price:12,  oldPrice:null, badge:'instant', category:'starter', emoji:'🐉', hot:false, rating:5.0, reviews:31 },
@@ -43,4 +54,5 @@ const Storage = {
     { id:'p16', game:'FGO',               name:'FGO Starter Reroll Account',              sub:'Tous serveurs',      price:7,   oldPrice:null, badge:'instant', category:'starter', emoji:'✨', hot:false, rating:5.0, reviews:28 },
   ];
   localStorage.setItem('djib_products', JSON.stringify(defaults));
+  localStorage.setItem('djib_products_version', PRODUCTS_VERSION);
 })();
